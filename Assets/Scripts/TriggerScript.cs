@@ -112,6 +112,7 @@ public class TriggerScript : MonoBehaviour
     public void PlaceAgain()
     {
         newPlacedObject = placeManager.GetNewPlacedObject();
+        Destroy(newPlacedObject);
 
         intro1.SetActive(false);
         intro2.SetActive(false);
@@ -123,7 +124,6 @@ public class TriggerScript : MonoBehaviour
 
 
         placeIndicator.gameObject.SetActive(true);
-        Destroy(newPlacedObject);
     }
 
 }

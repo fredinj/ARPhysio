@@ -6,8 +6,8 @@ using UnityEngine.XR.ARSubsystems;
 
 public class PlaceManager : MonoBehaviour
 {
-
-    private PlaceIndicator placeIndicator;
+    //
+    public PlaceIndicator placeIndicator;
     public GameObject objectToPlace;
 
     public TriggerScript triggerScript;
@@ -21,7 +21,7 @@ public class PlaceManager : MonoBehaviour
 
     void Start()
     {
-        placeIndicator = FindObjectOfType<PlaceIndicator>();
+        // placeIndicator = FindObjectOfType<PlaceIndicator>();
         
     }
 
@@ -38,8 +38,14 @@ public class PlaceManager : MonoBehaviour
 
         if (newPlacedObject == null)
             {
-                //newPlacedObject = Instantiate(objectToPlace, hitPose.position, hitPose.rotation);
-                newPlacedObject = Instantiate(objectToPlace, placeIndicator.transform.position, placeIndicator.transform.rotation);
+
+            // Add 180 degrees to the y-axis rotation of the placeIndicator
+            Quaternion newRotation = Quaternion.Euler(placeIndicator.transform.rotation.eulerAngles.x,
+                                                      placeIndicator.transform.rotation.eulerAngles.y + 180,
+                                                      placeIndicator.transform.rotation.eulerAngles.z);
+
+            //newPlacedObject = Instantiate(objectToPlace, hitPose.position, hitPose.rotation);
+            newPlacedObject = Instantiate(objectToPlace, placeIndicator.transform.position, newRotation);
 
                 animationScript.animator = newPlacedObject.GetComponent<Animator>();
 

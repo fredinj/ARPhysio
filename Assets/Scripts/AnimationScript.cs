@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class AnimationScript : MonoBehaviour
 {
-    public Animator animator;
-    public GameObject panelTwo;
-    public GameObject panelOne;
 
+
+    // not used anymore
+    /*    public GameObject panelTwo;
+        public GameObject panelOne;*/
+
+
+    // hidden because the value is being set in PlaceManager.cs
+    [HideInInspector]
+    public Animator animator;
 
 
     void Start()

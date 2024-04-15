@@ -38,6 +38,13 @@ public class PlaceIndicator : MonoBehaviour
                 indicator.SetActive(true);
             }
         }
+        else
+        {
+            if (indicator.activeInHierarchy)
+            {
+                indicator.SetActive(false);
+            }
+        }
 
     }
 }
