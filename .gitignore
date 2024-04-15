@@ -6,3 +6,6 @@
 [Ll]ibrary/
 [Ll]ogs/
 [Oo]bj/
+[Tt]emp/
+ignore.conf
+.plastic/
