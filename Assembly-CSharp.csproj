@@ -61,8 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\UnityRepo\ARFeatheredPlaneMeshVisualizer.cs" />
+    <Compile Include="Assets\DataStoreScript.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\PlaceManager.cs" />
+    <Compile Include="Assets\Scripts\GameManagerScript.cs" />
+    <Compile Include="Assets\Scripts\UserManagerScript.cs" />
     <Compile Include="Assets\Scripts\AnimationScript.cs" />
     <Compile Include="Assets\Scripts\ARRaycastPlace.cs" />
     <Compile Include="Assets\Scripts\TriggerScript.cs" />

@@ -18,13 +18,37 @@ public class TriggerScript : MonoBehaviour
     GameObject newPlacedObject;
     private PlaceIndicator placeIndicator;
 
+
+    public UserManagerScript userManager;
+
+
     void Start()
     {
         placeIndicator = FindObjectOfType<PlaceIndicator>();
         placeManager = FindObjectOfType<PlaceManager>();
 
-        arCamera.gameObject.SetActive(false);
+        // change to reference from unity ui?
+        userManager = FindObjectOfType<UserManagerScript>();
 
+
+        // managed by usermanager for now
+        /*        arCamera.gameObject.SetActive(false);
+
+                intro1.SetActive(true);
+                intro2.SetActive(false);
+                intro3.SetActive(false);
+                login.SetActive(false);
+                register.SetActive(false);
+                detectPanel.SetActive(false);
+                arPanel.SetActive(false);*/
+
+        disableAll();
+        userManager.StartUserManagement();
+
+    }
+
+    public void intro1Active()
+    {
         intro1.SetActive(true);
         intro2.SetActive(false);
         intro3.SetActive(false);
@@ -33,7 +57,6 @@ public class TriggerScript : MonoBehaviour
         detectPanel.SetActive(false);
         arPanel.SetActive(false);
     }
-
 
     public void intro2Active()
     {
@@ -112,6 +135,7 @@ public class TriggerScript : MonoBehaviour
     public void PlaceAgain()
     {
         newPlacedObject = placeManager.GetNewPlacedObject();
+        Destroy(newPlacedObject);
 
         intro1.SetActive(false);
         intro2.SetActive(false);
@@ -122,8 +146,27 @@ public class TriggerScript : MonoBehaviour
         arPanel.SetActive(false);
 
 
-        Destroy(newPlacedObject);
         placeIndicator.gameObject.SetActive(true);
+    }
+
+    public void disableAll()
+    {
+        newPlacedObject = placeManager.GetNewPlacedObject();
+        if(newPlacedObject != null)
+        {
+            Destroy(newPlacedObject);
+        }
+
+        arCamera.gameObject.SetActive(false);
+        placeIndicator.gameObject.SetActive(false);
+
+        intro1.SetActive(false);
+        intro2.SetActive(false);
+        intro3.SetActive(false);
+        login.SetActive(false);
+        register.SetActive(false);
+        detectPanel.SetActive(false);
+        arPanel.SetActive(false);
     }
 
 }
