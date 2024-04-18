@@ -15,13 +15,15 @@ public class AnimationScript : MonoBehaviour
     [HideInInspector]
     public Animator animator;
 
+    private DataStoreScript dataStore;
+
 
     void Start()
     {
-    
+        dataStore = FindObjectOfType<DataStoreScript>();
     }
 
-    public void Idle()
+/*    public void Idle()
     {
         animator.SetTrigger("idleTrigger");
     }
@@ -36,8 +38,24 @@ public class AnimationScript : MonoBehaviour
     public void PikeWalk()
     {
         animator.SetTrigger("pikeWalkTrigger");
-    }
+    }*/
 
+
+    public void Animate()
+    {
+        string exercise = dataStore.currentExercise;
+        Debug.Log("Exercise: " + exercise);
+        if (!dataStore.isDoingExercise)
+        { 
+            animator.SetTrigger(exercise); 
+            dataStore.isDoingExercise = true;
+        }
+        else
+        {
+            animator.SetTrigger("idleTrigger");
+            dataStore.isDoingExercise = false;
+        }
+    }    
 
 
 }

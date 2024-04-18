@@ -28,7 +28,7 @@ MonoBehaviour:
     Selected: 0
   - Name: Page 3
     NodeId: 18:10732
-    Selected: 0
+    Selected: 1
   - Name: unity
     NodeId: 16:3078
-    Selected: 1
+    Selected: 0

@@ -15,6 +15,7 @@ public class TriggerScript : MonoBehaviour
     public GameObject register;
     public GameObject detectPanel;
     public GameObject arPanel;
+    public GameObject dashboard;
 
     //find using FindObjectOfType<ARSession>();
     private Camera arCamera;
@@ -63,9 +64,11 @@ public class TriggerScript : MonoBehaviour
         //arCamera.enabled = false;
         //arCamera.gameObject.SetActive(false);
         //xrOrigin.SetActive(false);
-        cameraManagerScript.DisableARCamera();
+        //cameraManagerScript.DisableARCamera();
+        ManageCamera(false);
 
         disableAll();
+        destroyDevin();
         logbox.text += "\nTrigger SCript init";
         //intro1Active();
         userManager.StartUserManagement();
@@ -75,66 +78,48 @@ public class TriggerScript : MonoBehaviour
     public void intro1Active()
     {
         //arCamera.gameObject.SetActive(false);
-        cameraManagerScript.DisableARCamera();
+        //cameraManagerScript.DisableARCamera();
+        ManageCamera(false);
+
+        disableAll();
         intro1.SetActive(true);
-        intro2.SetActive(false);
-        intro3.SetActive(false);
-        login.SetActive(false);
-        register.SetActive(false);
-        detectPanel.SetActive(false);
-        arPanel.SetActive(false);
+
     }
 
     public void intro2Active()
     {
         //arCamera.gameObject.SetActive(false);
 
-        intro1.SetActive(false);
+        disableAll();
         intro2.SetActive(true);
-        intro3.SetActive(false);
-        login.SetActive(false);
-        register.SetActive(false);
-        detectPanel.SetActive(false);
-        arPanel.SetActive(false);
+
     }
 
     public void intro3Active()
     {
         //arCamera.gameObject.SetActive(false);
 
-        intro1.SetActive(false);
-        intro2.SetActive(false);
+        disableAll();
         intro3.SetActive(true);
-        login.SetActive(false);
-        register.SetActive(false);
-        detectPanel.SetActive(false);
-        arPanel.SetActive(false);
+
     }
 
     public void loginActive()
     {
         //arCamera.gameObject.SetActive(false);
 
-        intro1.SetActive(false);
-        intro2.SetActive(false);
-        intro3.SetActive(false);
+        disableAll();
         login.SetActive(true);
-        register.SetActive(false);
-        detectPanel.SetActive(false);
-        arPanel.SetActive(false);
+
     }
 
     public void registerActive()
     {
         //arCamera.gameObject.SetActive(false);
 
-        intro1.SetActive(false);
-        intro2.SetActive(false);
-        intro3.SetActive(false);
-        login.SetActive(false);
+        disableAll();
         register.SetActive(true);
-        detectPanel.SetActive(false);
-        arPanel.SetActive(false);
+
     }
 
     public void detectActive()
@@ -142,64 +127,49 @@ public class TriggerScript : MonoBehaviour
         //arCamera.gameObject.SetActive(true);
         //arCamera.enabled = true;
         //xrOrigin.SetActive(true);
+
+        disableAll();
+        detectPanel.SetActive(true);
+
         cameraManagerScript.EnableARCamera();
+        ManageCamera(true);
 
         placeIndicator.gameObject.SetActive(true);
 
-
-        intro1.SetActive(false);
-        intro2.SetActive(false);
-        intro3.SetActive(false);
-        login.SetActive(false);
-        register.SetActive(false);
-        detectPanel.SetActive(true);
-        arPanel.SetActive(false);
     }
 
     public void arActive()
     {
-        placeIndicator.gameObject.SetActive(false);
+        disableAll();
 
+        //cameraManagerScript.EnableARCamera();
+        //ManageCamera(true);
 
-        intro1.SetActive(false);
-        intro2.SetActive(false);
-        intro3.SetActive(false);
-        login.SetActive(false);
-        register.SetActive(false);
-        detectPanel.SetActive(false);
         arPanel.SetActive(true);
     }
 
 
     public void PlaceAgain()
     {
-        newPlacedObject = placeManager.GetNewPlacedObject();
-        Destroy(newPlacedObject);
+        destroyDevin();
+        detectActive();
+    }
 
-        intro1.SetActive(false);
-        intro2.SetActive(false);
-        intro3.SetActive(false);
-        login.SetActive(false);
-        register.SetActive(false);
-        detectPanel.SetActive(true);
-        arPanel.SetActive(false);
-
-
-        placeIndicator.gameObject.SetActive(true);
+    public void dashboardActive()
+    {
+        disableAll();
+        dashboard.SetActive(true);
+        destroyDevin();
+        ManageCamera(false);
     }
 
     public void disableAll()
     {
-        newPlacedObject = placeManager.GetNewPlacedObject();
-        if (newPlacedObject != null)
-        {
-            Destroy(newPlacedObject);
-        }
+
 
         //arCamera.gameObject.SetActive(false);
         //arCamera.enabled = false;
         //xrOrigin.SetActive(false);
-        cameraManagerScript.DisableARCamera();
 
         placeIndicator.gameObject.SetActive(false);
 
@@ -210,6 +180,29 @@ public class TriggerScript : MonoBehaviour
         register.SetActive(false);
         detectPanel.SetActive(false);
         arPanel.SetActive(false);
+        dashboard.SetActive(false);
+
+    }
+
+    public void destroyDevin()
+    {
+        newPlacedObject = placeManager.GetNewPlacedObject();
+        if (newPlacedObject != null)
+        {
+            Destroy(newPlacedObject);
+        }
+    }
+
+    private void ManageCamera(bool state)
+    {
+        if(state == true)
+        {
+            cameraManagerScript.EnableARCamera();
+        }
+        else
+        {
+            cameraManagerScript.DisableARCamera();
+        }
     }
 
 }

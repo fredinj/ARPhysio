@@ -87,7 +87,7 @@ public class UserManagerScript : MonoBehaviour
         {
 
             //dataStore.userName = user.Email;
-            triggerScript.detectActive();
+            triggerScript.dashboardActive();
         }
         else
         {
@@ -281,7 +281,7 @@ public class UserManagerScript : MonoBehaviour
                 dataStore.isUserLoggedIn = true;
                 PlayerPrefs.SetInt("isUserLoggedIn", 1);
                 PlayerPrefs.Save();
-                triggerScript.detectActive();
+                triggerScript.dashboardActive();
             }
         }, TaskScheduler.FromCurrentSynchronizationContext());
     }
