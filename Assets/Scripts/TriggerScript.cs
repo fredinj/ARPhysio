@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class TriggerScript : MonoBehaviour
 {
@@ -12,6 +15,8 @@ public class TriggerScript : MonoBehaviour
     public GameObject register;
     public GameObject detectPanel;
     public GameObject arPanel;
+
+    //find using FindObjectOfType<ARSession>();
     public Camera arCamera;
 
     PlaceManager placeManager;
@@ -20,6 +25,8 @@ public class TriggerScript : MonoBehaviour
 
 
     public UserManagerScript userManager;
+    public TextMeshProUGUI logbox;
+
 
 
     void Start()
@@ -28,7 +35,8 @@ public class TriggerScript : MonoBehaviour
         placeManager = FindObjectOfType<PlaceManager>();
 
         // change to reference from unity ui?
-        userManager = FindObjectOfType<UserManagerScript>();
+        //userManager = FindObjectOfType<UserManagerScript>();
+
 
 
         // managed by usermanager for now
@@ -42,13 +50,20 @@ public class TriggerScript : MonoBehaviour
                 detectPanel.SetActive(false);
                 arPanel.SetActive(false);*/
 
+        //arCamera.enabled = false;
+        arCamera.gameObject.SetActive(false);
+
         disableAll();
+        logbox.text += "\nTrigger SCript init";
+        //intro1Active();
         userManager.StartUserManagement();
 
     }
 
     public void intro1Active()
     {
+        arCamera.gameObject.SetActive(false);
+
         intro1.SetActive(true);
         intro2.SetActive(false);
         intro3.SetActive(false);
@@ -60,6 +75,8 @@ public class TriggerScript : MonoBehaviour
 
     public void intro2Active()
     {
+        arCamera.gameObject.SetActive(false);
+
         intro1.SetActive(false);
         intro2.SetActive(true);
         intro3.SetActive(false);
@@ -71,6 +88,8 @@ public class TriggerScript : MonoBehaviour
 
     public void intro3Active()
     {
+        arCamera.gameObject.SetActive(false);
+
         intro1.SetActive(false);
         intro2.SetActive(false);
         intro3.SetActive(true);
@@ -82,6 +101,8 @@ public class TriggerScript : MonoBehaviour
 
     public void loginActive()
     {
+        arCamera.gameObject.SetActive(false);
+
         intro1.SetActive(false);
         intro2.SetActive(false);
         intro3.SetActive(false);
@@ -93,6 +114,8 @@ public class TriggerScript : MonoBehaviour
 
     public void registerActive()
     {
+        arCamera.gameObject.SetActive(false);
+
         intro1.SetActive(false);
         intro2.SetActive(false);
         intro3.SetActive(false);
@@ -105,6 +128,7 @@ public class TriggerScript : MonoBehaviour
     public void detectActive()
     {
         arCamera.gameObject.SetActive(true);
+        //arCamera.enabled = true;
         placeIndicator.gameObject.SetActive(true);
 
 
@@ -158,6 +182,7 @@ public class TriggerScript : MonoBehaviour
         }
 
         arCamera.gameObject.SetActive(false);
+        //arCamera.enabled = false;
         placeIndicator.gameObject.SetActive(false);
 
         intro1.SetActive(false);

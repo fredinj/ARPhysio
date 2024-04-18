@@ -1,17 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Net;
+
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+
 using Firebase;
 using Firebase.Auth;
-using System.Threading.Tasks;
-using Firebase.Extensions;
 
 public class UserManagerScript : MonoBehaviour
 {
@@ -58,34 +52,46 @@ public class UserManagerScript : MonoBehaviour
 
         gameManager = FindObjectOfType<GameManagerScript>();
 
-
-        if (user != null)
+        if (PlayerPrefs.HasKey("isUserLoggedIn"))
         {
             // If it exists, get its value
-            dataStore.isUserLoggedIn = true;
+            dataStore.isUserLoggedIn = PlayerPrefs.GetInt("isUserLoggedIn") == 1 ? true : false;
+        }
+        else 
+        {
+            dataStore.isUserLoggedIn = false;
+            PlayerPrefs.SetInt("isUserLoggedIn", 0);
+            PlayerPrefs.Save();
+        }
 
-            Debug.Log("login flag exists");
+        if (dataStore.isUserLoggedIn) { 
+
+            if (user != null)
+            {
+                // If it exists, get its value
+                dataStore.isUserLoggedIn = true;
+
+                Debug.Log("login flag exists");
+            }
         }
         else
         {
             Debug.Log("login flag doesn't exist");
 
             dataStore.isUserLoggedIn = false;
-            dataStore.userName = "";
 
             LogoutUser();
         }
 
         if (dataStore.isUserLoggedIn)
         {
-            //dataStore.userName = PlayerPrefs.GetString("userName");
 
-            dataStore.userName = user.Email;
+            //dataStore.userName = user.Email;
             triggerScript.detectActive();
         }
         else
         {
-            dataStore.userName = "";
+
             triggerScript.intro1Active();
         }
     }
@@ -106,6 +112,7 @@ public class UserManagerScript : MonoBehaviour
                 if (task.IsCanceled)
                 {
                     Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
+                    
                     return;
                 }
                 if (task.IsFaulted)
@@ -270,6 +277,10 @@ public class UserManagerScript : MonoBehaviour
             {
                 Debug.Log("User Signed In successfully");
 
+
+                dataStore.isUserLoggedIn = true;
+                PlayerPrefs.SetInt("isUserLoggedIn", 1);
+                PlayerPrefs.Save();
                 triggerScript.detectActive();
             }
         }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -281,8 +292,10 @@ public class UserManagerScript : MonoBehaviour
 
     public void LogoutUser()
     {
+
         dataStore.isUserLoggedIn = false;
-        dataStore.userName = "";
+        PlayerPrefs.SetInt("isUserLoggedIn", 0);
+        PlayerPrefs.Save();
 
         auth.SignOut();
 
