@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1846F999-EECB-8C7E-E7B4-4BA707B84C16}</ProjectGuid>
+    <ProjectGuid>{4F568DCF-C58D-AA6C-619E-58A366686B3A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\AnimationScript.cs" />
     <Compile Include="Assets\Scripts\ARRaycastPlace.cs" />
     <Compile Include="Assets\Scripts\TriggerScript.cs" />
+    <Compile Include="Assets\Scripts\CameraManagerScript.cs" />
     <Compile Include="Assets\Scripts\PlaceIndicator.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,8 @@
   "project_info": {
     "project_number": "286703403746",
     "project_id": "arphysio-757b0",
-    "storage_bucket": "arphysio-757b0.appspot.com"
+    "storage_bucket": "arphysio-757b0.appspot.com",
+    "firebase_url": "https://arphysio-757b0-default-rtdb.asia-southeast1.firebasedatabase.app/"
   },
   "client": [
     {
