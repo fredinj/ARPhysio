@@ -16,6 +16,8 @@ public class TriggerScript : MonoBehaviour
     public GameObject detectPanel;
     public GameObject arPanel;
     public GameObject dashboard;
+    public GameObject profile;
+    public GameObject profileEdit;
 
     //find using FindObjectOfType<ARSession>();
     private Camera arCamera;
@@ -163,6 +165,18 @@ public class TriggerScript : MonoBehaviour
         ManageCamera(false);
     }
 
+    public void ProfileActive()
+    {
+        disableAll();
+        profile.SetActive(true);
+    }    
+    
+    public void ProfileEditActive()
+    {
+        disableAll();
+        profileEdit.SetActive(true);
+    }
+
     public void disableAll()
     {
 
@@ -181,6 +195,8 @@ public class TriggerScript : MonoBehaviour
         detectPanel.SetActive(false);
         arPanel.SetActive(false);
         dashboard.SetActive(false);
+        profileEdit.SetActive(false);
+        profile.SetActive(false);
 
     }
 

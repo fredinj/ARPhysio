@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+
+
 
 public class DataStoreScript : MonoBehaviour
 {
@@ -6,8 +9,10 @@ public class DataStoreScript : MonoBehaviour
     public bool isUserLoggedIn;
     //public string userName;
     public string currentExercise;
-
     public bool isDoingExercise;
+
+
+    // profile related
 
 
     public void Squats()

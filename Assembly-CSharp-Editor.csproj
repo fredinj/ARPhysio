@@ -65,10 +65,12 @@
   <ItemGroup>
     <None Include="Assets\ExternalDependencyManager\Editor\1.2.179\Google.PackageManagerResolver.dll" />
     <None Include="Assets\ExternalDependencyManager\Editor\external-dependency-manager_version-1.2.179_manifest.txt" />
+    <None Include="Assets\Firebase\Editor\FirebaseFirestore_version-11.8.1_manifest.txt" />
     <None Include="Assets\ExternalDependencyManager\Editor\1.2.179\Google.IOSResolver.dll" />
     <None Include="Assets\ExternalDependencyManager\Editor\1.2.179\Google.VersionHandlerImpl.dll" />
     <None Include="Assets\ExternalDependencyManager\Editor\1.2.179\Google.JarResolver.dll" />
     <None Include="Assets\Firebase\Editor\AuthDependencies.xml" />
+    <None Include="Assets\Firebase\Editor\FirestoreDependencies.xml" />
     <None Include="Assets\Firebase\Editor\AppDependencies.xml" />
     <None Include="Assets\Firebase\Editor\FirebaseAuth_version-11.8.1_manifest.txt" />
     <None Include="Assets\Firebase\Editor\Firebase.Editor.dll" />
@@ -449,6 +451,10 @@
     </Reference>
     <Reference Include="Google.IOSResolver">
       <HintPath>Assets\ExternalDependencyManager\Editor\1.2.179\Google.IOSResolver.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Firebase.Firestore">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Firestore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
@@ -1199,16 +1205,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Nobi.UiRoundedCorners">
+      <HintPath>Library\ScriptAssemblies\Nobi.UiRoundedCorners.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
       <HintPath>Library\ScriptAssemblies\UnityEditor.SpatialTracking.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Nobi.UiRoundedCorners">
-      <HintPath>Library\ScriptAssemblies\Nobi.UiRoundedCorners.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">

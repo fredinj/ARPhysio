@@ -6,6 +6,8 @@ using UnityEngine;
 
 using Firebase;
 using Firebase.Auth;
+using System.Linq;
+using System;
 
 public class UserManagerScript : MonoBehaviour
 {
@@ -24,6 +26,15 @@ public class UserManagerScript : MonoBehaviour
     public TMP_InputField signupEmailField;
     public TMP_InputField signupPasswordField;
     public TMP_InputField signupConfirmField;
+    public TMP_Text usernameProfile;
+    public TMP_Text userEmailProfile;
+    public TMP_Text usernameEdit;
+    public TMP_InputField userNameEdit;
+    public TMP_InputField firstnameEdit;
+    public TMP_InputField lastnameEdit;
+    public TMP_InputField phoneEdit;
+    public TMP_Dropdown genderEdit;
+
 
     // data store
     public DataStoreScript dataStore;
@@ -32,14 +43,16 @@ public class UserManagerScript : MonoBehaviour
     GameManagerScript gameManager;
     TriggerScript triggerScript;
 
+    // firebase
     private FirebaseAuth auth;
-
+    private FirestoreManager firestoreManager;
 
     private void Start()
     {
         // change to reference from unity ui?
         triggerScript = FindObjectOfType<TriggerScript>();
         auth = FirebaseAuth.DefaultInstance;
+        firestoreManager = FindObjectOfType<FirestoreManager>();
     }
 
 
@@ -71,6 +84,7 @@ public class UserManagerScript : MonoBehaviour
                 // If it exists, get its value
                 dataStore.isUserLoggedIn = true;
 
+
                 Debug.Log("login flag exists");
             }
         }
@@ -85,8 +99,11 @@ public class UserManagerScript : MonoBehaviour
 
         if (dataStore.isUserLoggedIn)
         {
-
             //dataStore.userName = user.Email;
+            firestoreManager.FirebaseInit();
+
+            updateProfileData();
+
             triggerScript.dashboardActive();
         }
         else
@@ -95,6 +112,84 @@ public class UserManagerScript : MonoBehaviour
             triggerScript.intro1Active();
         }
     }
+
+
+    #region profile data
+
+    public async void updateProfileData()
+    {
+        try
+        {
+            await firestoreManager.GetUserDetails(auth.CurrentUser.Email);
+
+            if (firestoreManager.userData != null)
+            {
+                UserData data = firestoreManager.userData;
+
+                usernameProfile.text = data.userName;
+                userNameEdit.text = data.userName;
+                usernameEdit.text = data.userName;
+                firstnameEdit.text = data.firstName;
+                lastnameEdit.text = data.lastName;
+                phoneEdit.text = data.phone;
+                userEmailProfile.text = auth.CurrentUser.Email;
+
+                Debug.Log("User Data Ftetched");
+
+                // Set gender dropdown
+                int genderIndex = FindGenderIndex(data.gender);
+                genderEdit.value = genderIndex;
+            }
+            else
+            {
+                Debug.LogError("UserData is null");
+                // Handle the case when userData is null
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Error retrieving user data: {ex.Message}");
+            // Handle the exception
+        }
+    }
+
+    public async void saveProfileData()
+    {
+        UserData data = firestoreManager.userData;
+        if (data != null)
+        {
+            data.userName = userNameEdit.text;
+            data.firstName = firstnameEdit.text;
+            data.lastName = lastnameEdit.text;
+            data.phone = phoneEdit.text;
+
+            int selectedIndex = genderEdit.value;
+            string selectedGender = genderEdit.options[selectedIndex].text;
+
+            data.gender = selectedGender;
+
+            await firestoreManager.StoreFirestore();
+
+            Debug.Log("User Data Updated");
+        }
+    }
+
+    private int FindGenderIndex(string gender)
+    {
+        // Assuming the dropdown options are already set somewhere else
+        // Get the array of dropdown options
+        string[] options = genderEdit.options.Select(option => option.text).ToArray();
+
+
+        // Find the index of the gender in the options array
+        int index = Array.IndexOf(options, gender);
+
+        // Return the index or -1 if not found
+        return index != -1 ? index : 0; // Default to first option if gender not found
+    }
+
+    #endregion
+
 
     #region signup
     public void RegisterUser()
@@ -281,6 +376,11 @@ public class UserManagerScript : MonoBehaviour
                 dataStore.isUserLoggedIn = true;
                 PlayerPrefs.SetInt("isUserLoggedIn", 1);
                 PlayerPrefs.Save();
+
+                firestoreManager.FirebaseInit();
+
+                updateProfileData();
+
                 triggerScript.dashboardActive();
             }
         }, TaskScheduler.FromCurrentSynchronizationContext());
