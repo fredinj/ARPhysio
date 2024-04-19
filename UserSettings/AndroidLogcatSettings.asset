@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "RZ8N70SCXJV",
     "m_SelectedProcess": {
-        "deviceId": "RZ8N70SCXJV",
+        "deviceId": "RZCW707XRGZ",
         "name": "com.ARPhysio.ARPhysio",
-        "processId": 16619,
+        "processId": 22990,
         "exited": false
     },
     "m_SelectedPriority": 2,
@@ -48,6 +48,12 @@
             "deviceId": "192.168.1.24:5555",
             "name": "com.ARPhysio.ARPhysio",
             "processId": 19759,
+            "exited": false
+        },
+        {
+            "deviceId": "RZCW707XRGZ",
+            "name": "com.ARPhysio.ARPhysio",
+            "processId": 22990,
             "exited": false
         }
     ],

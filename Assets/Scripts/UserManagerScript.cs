@@ -171,6 +171,8 @@ public class UserManagerScript : MonoBehaviour
             await firestoreManager.StoreFirestore();
 
             Debug.Log("User Data Updated");
+
+            updateProfileData();
         }
     }
 
